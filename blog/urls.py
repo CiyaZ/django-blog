@@ -17,12 +17,13 @@ from django.contrib import admin
 from django.urls import path, re_path
 from .views.index_view import index
 from .views.blog_view import blog
-from .views.pages_view import about
+from .views.pages_view import about,help
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
     path('index', index),
     path('about', about),
+    path('help', help),
     re_path(r'^blogs/(?P<id>[0-9]+)$', blog)
 ]
