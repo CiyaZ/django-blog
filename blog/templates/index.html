@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'global/global.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <title>{{ blog_user.username }}的博客</title>
+</head>
+
+<body>
+    {% include 'widgets/nav.html' %}
+    <div class="container" style="margin-top: 4rem">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                {% if category_id != None %}
+                <li class="breadcrumb-item"><a href="/index"></a>{{ category.category_name }}</li>
+                {% endif %}
+            </ol>
+        </nav>
+        <div class="card" style="margin-top: 1rem">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        {% for blog in blog_list_page.object_list %}
+                        <div class="card" style="margin-top: 1rem">
+                            <div class="card-body">
+                                <h4><a href="/blogs/{{ blog.pk }}">{{ blog.title }}</a></h4>
+                                <p class="text-secondary">所属分类：{{blog.category.category_name}}
+                                    创建时间：{{ blog.create_time }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card" style="margin-top: 1rem">
+                            <div class="card-body" style="text-align: center">
+                                <img width="100" height="100" src="{{ blog_user.avatar }}"
+                                    style="border-radius: 999px; margin-bottom: 1rem" />
+                                <p class="text-secondary">{{ blog_user.email }}</p>
+                                <p class="text-secondary">{{ blog_user.username }}</p>
+                            </div>
+                        </div>
+                        <div class="card" style="margin-top: 1rem">
+                            <div class="card-body" style="text-align: center">
+                                <div class="list-group">
+                                    <a href="/index" class="list-group-item list-group-item-action"
+                                        style="text-align: left">全部</a>
+                                    {% for category in category_list %}
+                                    <a href="/index?category={{ category.pk }}"
+                                        class="list-group-item list-group-item-action"
+                                        style="text-align: left">{{ category.category_name }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="pagination" style="margin-top: 1rem">
+                    {% if blog_list_page.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="/index?page={{ blog_list_page.previous_page_number }}{%if category_id != None%}&category={{ category_id }}{%endif%}">
+                            <span>&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% for page_btn in page_btn_list %}
+                    <li class="page-item {%if page_btn == current_page%}active{%endif%}">
+                        <a class="page-link"
+                            href="/index?page={{ page_btn }}{%if category_id != None%}&category={{ category_id }}{%endif%}">{{ page_btn }}</a>
+                    </li>
+                    {% endfor %}
+                    {% if blog_list_page.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="/index?page={{ blog_list_page.next_page_number }}{%if category_id != None%}&category={{ category_id }}{%endif%}">
+                            <span>&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        {% include 'widgets/foot.html' %}
+    </div>
+</body>
+
+</html>
