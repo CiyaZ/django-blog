@@ -5,5 +5,23 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/index">主页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">关于</a>
+                </li>
+            </ul>
+            <form action="/index" method="get" class="form-inline my-2 my-lg-0 mr-auto ml-lg-5">
+                {% if category_id != None %}
+                <input type="hidden" name="category" value="{{ category_id }}" />
+                {% endif %}
+                <input name="pattern" class="form-control mr-sm-2 bg-light" type="search" placeholder="Search"
+                    aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+            </form>
+        </div>
     </nav>
 </div>

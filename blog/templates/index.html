@@ -22,7 +22,11 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/index">Home</a></li>
                 {% if category_id != None %}
-                <li class="breadcrumb-item"><a href="/index"></a>{{ category.category_name }}</li>
+                <li class="breadcrumb-item"><a href="/index?category={{ category_id }}">{{ category.category_name }}</a>
+                </li>
+                {% endif %}
+                {% if pattern != None and pattern != '' %}
+                <li class="breadcrumb-item">搜索结果</li>
                 {% endif %}
             </ol>
         </nav>
@@ -45,8 +49,8 @@
                             <div class="card-body" style="text-align: center">
                                 <img width="100" height="100" src="{{ blog_user.avatar }}"
                                     style="border-radius: 999px; margin-bottom: 1rem" />
-                                <p class="text-secondary">{{ blog_user.email }}</p>
-                                <p class="text-secondary">{{ blog_user.username }}</p>
+                                <h5>{{ blog_user.username }}</h5>
+                                <p class="text-secondary">{{ blog_user.motto }}</p>
                             </div>
                         </div>
                         <div class="card" style="margin-top: 1rem">
@@ -60,6 +64,19 @@
                                         style="text-align: left">{{ category.category_name }}</a>
                                     {% endfor %}
                                 </div>
+                            </div>
+                        </div>
+                        <div class="card" style="margin-top: 1rem">
+                            <div class="card-body">
+                                <h6 class="text-secondary">友情链接</h6>
+                                {% for link in link_list %}
+                                <div style="margin-left: 1rem; margin-top: 1rem; ">
+                                    <span>
+                                        <img src="{{ link.icon_src }}" style="border-radius: 999px" width="24" height="24" />
+                                    </span>
+                                    <span style="margin-left: 1rem"><a href="{{ link.link_href }}">{{ link.link_name }}</a></span>
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

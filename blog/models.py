@@ -3,9 +3,10 @@ from django.db import models
 
 class BlogUser(models.Model):
     username = models.CharField(max_length=20)
-    email = models.CharField(max_length=255, blank=True, null=True)
+    email = models.CharField(max_length=255, null=True)
     password = models.CharField(max_length=255)
     avatar = models.CharField(max_length=255, null=True)
+    motto = models.CharField(max_length=255, null=True)
 
     def __str__(self):
         return self.username
@@ -26,3 +27,12 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Link(models.Model):
+    link_name = models.CharField(max_length=20)
+    icon_src = models.CharField(max_length=255)
+    link_href = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.link_name

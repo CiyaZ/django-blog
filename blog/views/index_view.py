@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from ..models import BlogUser
 from ..models import Blog
 from ..models import Category
+from ..models import Link
 
 
 def index(request):
@@ -18,6 +19,7 @@ def index(request):
     else:
         page_size = int(page_size)
     category_id = request.GET.get('category')
+    pattern = request.GET.get('pattern')
 
     # 当前用户
     blog_user = BlogUser.objects.get(id=1)
@@ -28,8 +30,14 @@ def index(request):
     if category_id != None:
         category = Category.objects.get(id=category_id)
 
+    # 友情链接
+    link_list = Link.objects.all()
+
     # 分页动态查询文章
     blog_list = Blog.objects.all()
+    if pattern != None and pattern != '':
+        blog_list = blog_list.filter(
+            content__contains=pattern) | blog_list.filter(title__contains=pattern)
     if category_id != None:
         blog_list = blog_list.filter(category_id=category_id)
     blog_list = blog_list.order_by('-create_time')
@@ -62,8 +70,10 @@ def index(request):
         'blog_list_page': blog_list_page,
         'category_list': category_list,
         'page_btn_list': page_btn_list,
+        'link_list': link_list,
         'category_id': category_id,
         'category': category,
         'current_page': current_page,
-        'page_size': page_size
+        'page_size': page_size,
+        'pattern': pattern
     })
