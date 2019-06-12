@@ -1,0 +1,73 @@
+.loading-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+.loading-circle {
+    /*屏幕居中*/
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    /*画一个白色的圆圈*/
+    width: 10rem;
+    height: 10rem;
+    border: 1rem solid #ffffff;
+    border-radius: 50%;
+    /*动画效果*/
+    animation: 0.7s loading-anim infinite;
+    /* 深度 */
+    z-index: 2;
+}
+@keyframes loading-anim {
+    0% {
+        width: 8rem;
+        height: 8rem;
+    }
+    100% {
+        width: 12rem;
+        height: 12rem;
+        opacity: 0;
+    }
+}
+.loading-txt {
+    /*屏幕居中*/
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 10rem;
+    height: 10rem;
+    /*使用Flex布局使内部文字居中*/
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    /*字体颜色*/
+    color: #ffffff;
+    font-family: Roboto-Regular, sans-serif;
+    font-size: 1.6rem;
+    text-shadow: 2px 2px 10px #ffffff;
+    /*动画效果*/
+    animation: 0.1s loading-txt-anim infinite;
+    /* 深度 */
+    z-index: 2;
+}
+@keyframes loading-txt-anim {
+    0% {
+        transform: translateX(1px);
+    }
+    50% {
+        transform: translateX(-1px);
+    }
+    100% {
+        transform: translateX(1px);
+    }
+}
