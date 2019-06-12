@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
-from blog.models import Blog, Category, Link
+from blog.models import Blog, Category
 
 
 def blog_list(request):

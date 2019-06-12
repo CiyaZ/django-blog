@@ -1,7 +1,3 @@
-$(document).ready(function () {
-
-});
-
 function check() {
     var usernameInput = $('#username');
     var usernameInvalid = $('#username-invalid');
