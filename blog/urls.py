@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
+from django.urls.conf import include
 from .views.index_view import index
 from .views.blog_view import blog
-from .views.pages_view import about,help
+from .views.pages_view import about, help
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +26,6 @@ urlpatterns = [
     path('index', index),
     path('about', about),
     path('help', help),
-    re_path(r'^blogs/(?P<id>[0-9]+)$', blog)
+    re_path(r'^blogs/(?P<id>[0-9]+)$', blog),
+    path('backend/', include('backend.urls'))
 ]
