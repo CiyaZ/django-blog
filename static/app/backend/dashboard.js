@@ -1,3 +1,7 @@
+/**
+ * 框架iframe页面跳转
+ * @param {string} src 跳转地址
+ */
 function navTo(src) {
 
     var iframe = $('#iframe');
@@ -8,4 +12,12 @@ function navTo(src) {
     } else {
         iframe.attr('src', src);
     }
+}
+
+/**
+ * 外部页面跳转
+ * @param {string} src 跳转地址
+ */
+function rootNavTo(src) {
+    location.href = src;
 }
