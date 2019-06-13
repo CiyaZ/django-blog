@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect
+from django.utils.timezone import now
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest, JsonResponse
 from blog.models import Blog, Category
 
 
@@ -74,3 +75,77 @@ def delete_blog(request):
     if id != None:
         Blog.objects.get(pk=id).delete()
     return HttpResponseRedirect('/backend/blogs')
+
+
+def edit_blog(request):
+    id = request.GET.get('id')
+    blog = None
+    if id != None:
+        blog = Blog.objects.get(id=id)
+
+    action = 'add'
+    if blog != None:
+        action = 'update'
+
+    category_list = Category.objects.all()
+    return render(request, 'blog_edit.html', {
+        'action': action,
+        'blog': blog,
+        'category_list': category_list
+    })
+
+
+def add_blog(request):
+    title = request.POST.get('title')
+    category_id = request.POST.get('category')
+    content = request.POST.get('content')
+    category = None
+
+    # 非法提交
+    if title == None or len(title) < 1 or len(title) > 100:
+        return HttpResponseBadRequest("Http 400 Bad Request")
+    if content == None or len(content) < 1 or len(content) > 20000:
+        return HttpResponseBadRequest("Http 400 Bad Request")
+    if category_id == None or category_id == '':
+        return HttpResponseBadRequest("Http 400 Bad Request")
+    else:
+        category = Category.objects.get(id=category_id)
+
+    if category != None:
+        blog = Blog(title=title, content=content,
+                    category=category, create_time=now())
+        blog.save()
+        return JsonResponse({
+            'id': blog.pk
+        })
+
+    return HttpResponse()
+
+
+def update_blog(request):
+
+    blog_id = request.POST.get('id')
+    title = request.POST.get('title')
+    category_id = request.POST.get('category')
+    content = request.POST.get('content')
+    blog = None
+    category = None
+
+    # 非法提交
+    if title == None or len(title) < 1 or len(title) > 100:
+        return HttpResponseBadRequest("Http 400 Bad Request")
+    if content == None or len(content) < 1 or len(content) > 20000:
+        return HttpResponseBadRequest("Http 400 Bad Request")
+    if category_id == None or category_id == '':
+        return HttpResponseBadRequest("Http 400 Bad Request")
+    else:
+        category = Category.objects.get(id=category_id)
+        blog = Blog.objects.get(id=blog_id)
+
+    if category != None and blog != None:
+        blog.title = title
+        blog.content = content
+        blog.category = category
+        blog.save()
+
+    return HttpResponse()

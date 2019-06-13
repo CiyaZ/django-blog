@@ -60,7 +60,8 @@
                             <td>{{ blog.create_time }}</td>
                             <td>
                                 <a class="btn btn-outline-primary" href="/blogs/{{ blog.pk }}" target="_top">预览</a>
-                                <a class="btn btn-outline-success" href="#">编辑</a>
+                                <button class="btn btn-outline-success"
+                                    onclick="navTo('/backend/blogs/edit?id={{ blog.pk }}')">编辑</button>
                                 <button class="btn btn-outline-danger"
                                     onclick="handleDeleteButton({{ blog.pk }})">删除</button>
                             </td>
