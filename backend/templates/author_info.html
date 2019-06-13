@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'app/backend/author_info.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'global/global.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <title>博主信息</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        {% if msg == 'success' %}
+        <div class="alert alert-success alert-dismissible fade show">
+            修改成功
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        <div class="card">
+            <div class="card-body">
+                <form action="/backend/author/update" method="post" onsubmit="return check();">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">用户名<span class="text-danger"> *</span></label>
+                        <input type="text" name="username" id="username" class="form-control"
+                            value="{{blog_user.username}}" />
+                        <div class="invalid-feedback" id="username-invalid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input type="text" name="email" id="email" class="form-control" value="{{blog_user.email}}" />
+                        <div class="invalid-feedback" id="email-invalid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="avatar">头像链接</label>
+                        <input type="text" name="avatar" id="avatar" class="form-control"
+                            value="{{blog_user.avatar}}" />
+                        <div class="invalid-feedback" id="avatar-invalid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="motto">个人签名</label>
+                        <input type="text" name="motto" id="motto" class="form-control" value="{{blog_user.motto}}" />
+                        <div class="invalid-feedback" id="motto-invalid"></div>
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-outline-success" value="更新" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

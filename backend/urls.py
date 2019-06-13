@@ -3,6 +3,7 @@ from .views.login_view import login, do_login
 from .views.dashboard_view import dashboard
 from .views.blog_list_view import blog_list, delete_blog, edit_blog, add_blog, update_blog
 from .views.category_list_view import category_list, add_category, delete_category
+from .views.author_info_view import author_info, author_info_update
 
 urlpatterns = [
     path('login', login),
@@ -16,4 +17,6 @@ urlpatterns = [
     path('categories', category_list),
     path('categories/new', add_category),
     path('categories/delete', delete_category),
+    path('author', author_info),
+    path('author/update', author_info_update),
 ]
