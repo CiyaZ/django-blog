@@ -1,6 +1,11 @@
 from django.db import models
 
 
+class Conf(models.Model):
+    conf_key = models.CharField(max_length=255)
+    conf_value = models.CharField(max_length=255)
+
+
 class BlogUser(models.Model):
     username = models.CharField(max_length=20)
     email = models.CharField(max_length=255, null=True)

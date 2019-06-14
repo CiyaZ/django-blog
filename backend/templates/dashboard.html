@@ -22,30 +22,36 @@
         <div class="row">
             <div class="col-lg-2">
                 <div class="list-group">
-                    <a onclick="navTo('/backend/blogs')" class="list-group-item list-group-item-action dashboard-menu"><i
+                    <a onclick="navTo('/backend/blogs')"
+                        class="list-group-item list-group-item-action dashboard-menu"><i
                             class="fas fa-list text-secondary"></i>
                         文章列表</a>
-                    <a onclick="navTo('/backend/categories')" class="list-group-item list-group-item-action dashboard-menu"><i
+                    <a onclick="navTo('/backend/categories')"
+                        class="list-group-item list-group-item-action dashboard-menu"><i
                             class="fas fa-tags text-secondary"></i>
                         分类列表</a>
-                    <a onclick="navTo('/backend/blogs/edit')" class="list-group-item list-group-item-action dashboard-menu"><i
+                    <a onclick="navTo('/backend/blogs/edit')"
+                        class="list-group-item list-group-item-action dashboard-menu"><i
                             class="fas fa-pencil-alt text-secondary"></i>
                         撰写文章</a>
                 </div>
                 <div class="list-group" style="margin-top: 1rem">
-                    <a onclick="navTo('/backend/author')" class="list-group-item list-group-item-action dashboard-menu"><i
+                    <a onclick="navTo('/backend/author')"
+                        class="list-group-item list-group-item-action dashboard-menu"><i
                             class="fas fa-user text-secondary"></i>
                         博主信息</a>
-                    <a onclick="navTo('/backend/password/edit')" class="list-group-item list-group-item-action dashboard-menu"><i
+                    <a onclick="navTo('/backend/password/edit')"
+                        class="list-group-item list-group-item-action dashboard-menu"><i
                             class="fas fa-key text-secondary"></i> 修改密码</a>
                 </div>
                 <div class="list-group" style="margin-top: 1rem">
                     <a onclick="rootNavTo('/admin')" class="list-group-item list-group-item-action dashboard-menu"><i
                             class="fas fa-toolbox text-secondary"></i>
                         Admin面板</a>
-                    <a class="list-group-item list-group-item-action dashboard-menu"><i
+                    <a onclick="navTo('/backend/config/edit')"
+                        class="list-group-item list-group-item-action dashboard-menu"><i
                             class="fas fa-cog text-secondary"></i> 站点设置</a>
-                    <a class="list-group-item list-group-item-action dashboard-menu"><i
+                    <a onclick="navTo('/backend/statistics')" class="list-group-item list-group-item-action dashboard-menu"><i
                             class="fas fa-chart-line text-secondary"></i>
                         访问统计</a>
                 </div>

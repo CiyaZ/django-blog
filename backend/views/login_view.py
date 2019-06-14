@@ -5,7 +5,10 @@ from blog.models import BlogUser
 
 
 def login(request):
-    return render(request, 'login.html')
+    blog_user = BlogUser.objects.get(id=1)
+    return render(request, 'login.html', {
+        'blog_user': blog_user
+    })
 
 
 def do_login(request):
@@ -37,3 +40,8 @@ def do_login(request):
             'error': True,
             'msg': '用户名或密码错误'
         })
+
+
+def do_logout(request):
+    request.session.pop('user')
+    return HttpResponseRedirect('/backend/login')

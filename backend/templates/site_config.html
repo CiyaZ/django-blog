@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'app/backend/site_config.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'global/global.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <title>站点设置</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        {% if status == 'success' %}
+        <div class="alert alert-success alert-dismissible fade show">
+            修改成功
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        <div class="card">
+            <div class="card-body">
+                <form action="/backend/config/update" method="post">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="conf-site-auth" class="col-sm-2 col-form-label">内容访问控制</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="conf-site-auth" name="conf_site_auth">
+                                <option {% if conf_site_auth == 'backend-only' %}selected="selected"{% endif %} value="backend-only">仅后台</option>
+                                <option {% if conf_site_auth == 'all' %}selected="selected"{% endif %} value="all">全站</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="conf-statistics" class="col-sm-2 col-form-label">访问统计</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="conf-statistics" name="conf_statistics">
+                                <option {% if conf_statistics == 'close' %}selected="selected"{% endif %} value="close">关闭</option>
+                                <option {% if conf_statistics == 'open' %}selected="selected"{% endif %} value="open">开启</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="text-align: right">
+                        <input type="reset" value="恢复默认" class="btn btn-outline-danger" />
+                        <input type="submit" value="提交设置" class="btn btn-outline-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
