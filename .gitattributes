@@ -4,3 +4,5 @@ static/jquery/* linguist-vendored
 static/marked/* linguist-vendored
 static/highlight/* linguist-vendored
 static/echarts/* linguist-vendored
+backend/templates/* linguist-vendored
+blog/templates/* linguist-vendored
