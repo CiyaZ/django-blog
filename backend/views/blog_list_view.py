@@ -40,7 +40,6 @@ def blog_list(request):
     # 分页按钮组计算
     page_btn_list = []
     offset = 0
-    print(paginator.page_range)
     if current_page - 2 in paginator.page_range:
         page_btn_list.append(current_page - 2)
     else:

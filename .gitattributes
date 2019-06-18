@@ -3,3 +3,4 @@ static/fontawesome/* linguist-vendored
 static/jquery/* linguist-vendored
 static/marked/* linguist-vendored
 static/highlight/* linguist-vendored
+static/echarts/* linguist-vendored

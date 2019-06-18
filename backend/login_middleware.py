@@ -6,6 +6,7 @@ class LoginMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         self.backend_urls = (
+            '/backend/',
             '/backend/dashboard',
             '/backend/blogs',
             '/backend/blogs/edit',
@@ -21,6 +22,8 @@ class LoginMiddleware:
             '/backend/password/update',
             '/backend/config/edit',
             '/backend/config/update',
+            '/backend/statistics',
+            '/backend/statistics/query',
             '/backend/dologout',
         )
         self.except_urls = (

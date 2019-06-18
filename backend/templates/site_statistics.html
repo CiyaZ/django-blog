@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>统计数据</title>
+    {% load static %}
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'echarts/echarts.min.js' %}"></script>
+    <script src="{% static 'app/backend/site_statistics.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'global/global.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">内容统计</div>
+            <div class="card-body">
+                <div>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>总分类数</td>
+                            <td id="category-count">加载中</td>
+                        </tr>
+                        <tr>
+                            <td>总文章数</td>
+                            <td id="blog-count">加载中</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <div id="blog-chart" style="height: 20rem"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 先不实现此功能了 -->
+        <!-- <div class="card" style="margin-top: 1rem">
+            <div class="card-header">访问统计</div>
+            <div class="card-body">
+                <div id="access-chart" style="height: 20rem"></div>
+            </div>
+        </div> -->
+    </div>
+</body>
+
+</html>
