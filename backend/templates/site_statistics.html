@@ -39,13 +39,28 @@
                 </div>
             </div>
         </div>
-        <!-- 先不实现此功能了 -->
-        <!-- <div class="card" style="margin-top: 1rem">
-            <div class="card-header">访问统计</div>
+        <div class="card" style="margin-top: 1rem">
+            <div class="card-header">
+                <span>访问统计</span>
+                {% if conf.conf_value == 'open' %}
+                <span class="text-success">该功能已开启</span>
+                {% endif %}
+                {% if conf.conf_value == 'close' %}
+                <span class="text-danger">该功能已关闭</span>
+                {% endif %}
+            </div>
             <div class="card-body">
+                <div>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>今日后端请求量</td>
+                            <td id="access-count">加载中</td>
+                        </tr>
+                    </table>
+                </div>
                 <div id="access-chart" style="height: 20rem"></div>
             </div>
-        </div> -->
+        </div>
     </div>
 </body>
 

@@ -23,7 +23,8 @@ class LoginMiddleware:
             '/backend/config/edit',
             '/backend/config/update',
             '/backend/statistics',
-            '/backend/statistics/query',
+            '/backend/statistics/blog_query',
+            '/backend/statistics/access_query',
             '/backend/dologout',
         )
         self.except_urls = (
@@ -36,11 +37,11 @@ class LoginMiddleware:
         if 'conf' not in request.session:
             conf1 = Conf.objects.filter(conf_key='conf_site_auth').first()
             conf2 = Conf.objects.filter(conf_key='conf_statistics').first()
-            if conf1 == None:
+            if conf1 is None:
                 conf1 = Conf(conf_key='conf_site_auth',
                              conf_value='backend-only')
                 conf1.save()
-            if conf2 == None:
+            if conf2 is None:
                 conf2 = Conf(conf_key='conf_statistics', conf_value='close')
                 conf2.save()
             request.session['conf'] = {

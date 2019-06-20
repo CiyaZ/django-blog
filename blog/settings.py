@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'backend.login_middleware.LoginMiddleware',
+    'blog.statistics_middleware.StatisticsMiddleware',
 ]
 
 ROOT_URLCONF = 'blog.urls'
