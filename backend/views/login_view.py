@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import check_password
 from blog.models import BlogUser
 
 
 def login(request):
+    """获取后台登录页"""
     blog_user = BlogUser.objects.get(id=1)
     return render(request, 'login.html', {
         'blog_user': blog_user
@@ -12,6 +13,7 @@ def login(request):
 
 
 def do_login(request):
+    """登录"""
     username = request.POST.get('username')
     password = request.POST.get('password')
 
@@ -43,5 +45,6 @@ def do_login(request):
 
 
 def do_logout(request):
+    """登出"""
     request.session.pop('user')
     return HttpResponseRedirect('/backend/login')

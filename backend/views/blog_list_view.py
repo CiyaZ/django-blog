@@ -8,15 +8,15 @@ from blog.models import Blog, Category
 
 
 def blog_list(request):
-
-   # 分页和分类查询参数
+    """博文列表页"""
+    # 分页和分类查询参数
     current_page = request.GET.get('page')
-    if current_page == None:
+    if current_page is None:
         current_page = 1
     else:
         current_page = int(current_page)
     page_size = request.GET.get('size')
-    if page_size == None or int(page_size) > 20:
+    if page_size is None or int(page_size) > 20:
         page_size = 20
     else:
         page_size = int(page_size)
@@ -26,14 +26,14 @@ def blog_list(request):
     # 分类
     category_list = Category.objects.all()
     category = None
-    if category_id != None and category_id != 'all':
+    if category_id is not None and category_id != 'all':
         category = Category.objects.get(id=category_id)
     # 分页动态查询文章
     blog_list = Blog.objects.all()
-    if pattern != None and pattern != '':
+    if pattern is not None and pattern != '':
         blog_list = blog_list.filter(
             content__contains=pattern) | blog_list.filter(title__contains=pattern)
-    if category_id != None and category_id != 'all':
+    if category_id is not None and category_id != 'all':
         blog_list = blog_list.filter(category_id=category_id)
     blog_list = blog_list.order_by('-create_time')
     paginator = Paginator(blog_list, page_size)
@@ -72,13 +72,15 @@ def blog_list(request):
 
 
 def delete_blog(request):
+    """删除文章"""
     id = request.GET.get('id')
-    if id != None:
+    if id is not None:
         Blog.objects.get(pk=id).delete()
     return HttpResponseRedirect('/backend/blogs')
 
 
 def edit_blog(request):
+    """编辑文章页面，如果是更新，回显文章Markdown源码到表单"""
     id = request.GET.get('id')
     blog = None
     if id != None:
@@ -97,7 +99,7 @@ def edit_blog(request):
 
 
 def add_blog(request):
-    print('add')
+    """创建文章"""
     title = request.POST.get('title')
     category_id = request.POST.get('category')
     content = request.POST.get('content')
@@ -135,7 +137,7 @@ def add_blog(request):
 
 
 def update_blog(request):
-    print('update')
+    """更新文章"""
     blog_id = request.POST.get('id')
     title = request.POST.get('title')
     category_id = request.POST.get('category')
@@ -165,7 +167,6 @@ def update_blog(request):
         blog.content_img2 = content_img2
         blog.content_img3 = content_img3
         blog.category = category
-        print(blog)
         blog.save()
 
     return HttpResponse()

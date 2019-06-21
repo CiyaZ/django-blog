@@ -6,6 +6,7 @@ from blog.models import Blog, Category, AccessLog, Conf
 
 
 def site_statistics(request):
+    """站点统计页面"""
     conf = Conf.objects.filter(conf_key='conf_statistics').first()
     return render(request, 'site_statistics.html', {
         'conf': conf
@@ -13,6 +14,7 @@ def site_statistics(request):
 
 
 def blog_statistics_query(request):
+    """文章量统计"""
     # 文章总数
     blogs_cnt = Blog.objects.count()
     # 分类总数
@@ -83,6 +85,7 @@ def blog_statistics_query(request):
 
 
 def access_statistics_query(request):
+    """后端请求统计"""
     datetime_now = now()
     datetime_year = datetime_now.year
     datetime_month = datetime_now.month

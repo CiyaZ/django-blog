@@ -5,10 +5,12 @@ from blog.models import BlogUser
 
 
 def password_edit(request):
+    """获取密码修改页"""
     return render(request, 'password_edit.html')
 
 
 def password_update(request):
+    """更新密码"""
     password = request.POST.get('password')
     new_password = request.POST.get('newpassword')
     re_password = request.POST.get('repassword')

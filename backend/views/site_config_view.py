@@ -4,14 +4,15 @@ from blog.models import Conf
 
 
 def site_config_edit(request):
+    """站点设置页"""
     conf1 = Conf.objects.filter(conf_key='conf_site_auth').first()
     conf2 = Conf.objects.filter(conf_key='conf_statistics').first()
 
     conf_site_auth = 'backend-only'
     conf_statistics = 'close'
-    if conf1 != None:
+    if conf1 is not None:
         conf_site_auth = conf1.conf_value
-    if conf2 != None:
+    if conf2 is not None:
         conf_statistics = conf2.conf_value
 
     return render(request, 'site_config.html', {
@@ -21,6 +22,7 @@ def site_config_edit(request):
 
 
 def site_config_update(request):
+    """站点设置更新"""
     conf_site_auth = request.POST.get('conf_site_auth')
     conf_statistics = request.POST.get('conf_statistics')
 
@@ -32,14 +34,14 @@ def site_config_update(request):
 
     # 保存配置
     conf1 = Conf.objects.filter(conf_key='conf_site_auth').first()
-    if conf1 == None:
+    if conf1 is None:
         conf1 = Conf(conf_key='conf_site_auth', conf_value=conf_site_auth)
     else:
         conf1.conf_value = conf_site_auth
     conf1.save()
 
     conf2 = Conf.objects.filter(conf_key='conf_statistics').first()
-    if conf2 == None:
+    if conf2 is None:
         conf2 = Conf(conf_key='conf_statistics', conf_value=conf_statistics)
     else:
         conf2.conf_value = conf_statistics
