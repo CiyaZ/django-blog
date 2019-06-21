@@ -76,7 +76,7 @@ function postBlog() {
             $.ajax({
                 type: "POST",
                 async: true,
-                url: '/backend/blogs/add',
+                url: '/backend/blogs/update',
                 data: data,
                 success: function (msg) {
                     $('#toast-success').toast('show');

@@ -38,7 +38,21 @@
                         <div class="card" style="margin-top: 1rem">
                             <div class="card-body">
                                 <h4><a href="/blogs/{{ blog.pk }}">{{ blog.title }}</a></h4>
-                                <p class="text-secondary">所属分类：{{blog.category.category_name}}
+                                {% if blog.content_abstract != None %}
+                                <p class="text-secondary">摘要：{{ blog.content_abstract }}</p>
+                                {% endif %}
+                                <div>
+                                    {% if blog.content_img1 != None %}
+                                    <img height="90" src="{{ blog.content_img1 }}" />
+                                    {% endif %}
+                                    {% if blog.content_img2 != None %}
+                                    <img height="90" src="{{ blog.content_img2 }}" />
+                                    {% endif %}
+                                    {% if blog.content_img3 != None %}
+                                    <img height="90" src="{{ blog.content_img3 }}" />
+                                    {% endif %}
+                                </div>
+                                <p class="text-secondary" style="margin-top: 1rem;">所属分类：{{blog.category.category_name}}
                                     创建时间：{{ blog.create_time }}</p>
                             </div>
                         </div>

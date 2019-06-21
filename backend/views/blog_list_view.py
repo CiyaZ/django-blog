@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.utils.timezone import now
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest, JsonResponse
+import markdown
+import re
 from blog.models import Blog, Category
 
 
@@ -95,24 +97,35 @@ def edit_blog(request):
 
 
 def add_blog(request):
+    print('add')
     title = request.POST.get('title')
     category_id = request.POST.get('category')
     content = request.POST.get('content')
     category = None
 
     # 非法提交
-    if title == None or len(title) < 1 or len(title) > 100:
+    if title is None or len(title) < 1 or len(title) > 100:
         return HttpResponseBadRequest("Http 400 Bad Request")
-    if content == None or len(content) < 1 or len(content) > 20000:
+    if content is None or len(content) < 1 or len(content) > 20000:
         return HttpResponseBadRequest("Http 400 Bad Request")
-    if category_id == None or category_id == '':
+    if category_id is None or category_id == '':
         return HttpResponseBadRequest("Http 400 Bad Request")
     else:
         category = Category.objects.get(id=category_id)
 
-    if category != None:
-        blog = Blog(title=title, content=content,
-                    category=category, create_time=now())
+    content_rendered, content_abstract, content_img1, content_img2, content_img3 = blog_content_calc(content)
+
+    if category is not None:
+        blog = Blog(
+            title=title,
+            content=content,
+            content_rendered=content_rendered,
+            content_abstract=content_abstract,
+            content_img1=content_img1,
+            content_img2=content_img2,
+            content_img3=content_img3,
+            category=category,
+            create_time=now())
         blog.save()
         return JsonResponse({
             'id': blog.pk
@@ -122,7 +135,7 @@ def add_blog(request):
 
 
 def update_blog(request):
-
+    print('update')
     blog_id = request.POST.get('id')
     title = request.POST.get('title')
     category_id = request.POST.get('category')
@@ -131,20 +144,57 @@ def update_blog(request):
     category = None
 
     # 非法提交
-    if title == None or len(title) < 1 or len(title) > 100:
+    if title is None or len(title) < 1 or len(title) > 100:
         return HttpResponseBadRequest("Http 400 Bad Request")
-    if content == None or len(content) < 1 or len(content) > 20000:
+    if content is None or len(content) < 1 or len(content) > 20000:
         return HttpResponseBadRequest("Http 400 Bad Request")
-    if category_id == None or category_id == '':
+    if category_id is None or category_id == '':
         return HttpResponseBadRequest("Http 400 Bad Request")
     else:
         category = Category.objects.get(id=category_id)
         blog = Blog.objects.get(id=blog_id)
 
-    if category != None and blog != None:
+    content_rendered, content_abstract, content_img1, content_img2, content_img3 = blog_content_calc(content)
+
+    if category is not None and blog is not None:
         blog.title = title
         blog.content = content
+        blog.content_rendered = content_rendered
+        blog.content_abstract = content_abstract
+        blog.content_img1 = content_img1
+        blog.content_img2 = content_img2
+        blog.content_img3 = content_img3
         blog.category = category
+        print(blog)
         blog.save()
 
     return HttpResponse()
+
+
+def blog_content_calc(content):
+    """markdown渲染，识别文章摘要，识别文章中图片"""
+    content_rendered = markdown.markdown(content, extensions=['markdown.extensions.extra', 'markdown.extensions.codehilite', 'markdown.extensions.tables'])
+
+    content_abstract = None
+    content_lines = content.split('\n')
+    for line in content_lines:
+        if not line.startswith('#') and line.strip() != '':
+            content_abstract = line
+            break
+
+    content_imgs = []
+    for line in content_lines:
+        match = re.match(r'\!\[\]\((.*)\)', line)
+        if match:
+            content_imgs.append(match.group(1))
+    content_img1 = None
+    content_img2 = None
+    content_img3 = None
+    if len(content_imgs) >= 1:
+        content_img1 = content_imgs[0]
+    if len(content_imgs) >= 2:
+        content_img2 = content_imgs[1]
+    if len(content_imgs) >= 3:
+        content_img3 = content_imgs[2]
+
+    return (content_rendered, content_abstract, content_img1, content_img2, content_img3)

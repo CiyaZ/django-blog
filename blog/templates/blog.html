@@ -8,7 +8,6 @@
     {% load static %}
     <script src="{% static 'jquery/jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'marked/marked.min.js' %}"></script>
     <script src="{% static 'highlight/highlight.pack.js' %}"></script>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'global/global.css' %}">
@@ -31,30 +30,17 @@
         </nav>
         <div class="card" style="margin-top: 1rem">
             <div class="card-body">
-                <div id="content">{{ blog.content }}</div>
+                <div id="content">{{ blog.content_rendered | safe }}</div>
             </div>
         </div>
         {% include 'widgets/foot.html' %}
     </div>
 </body>
 <script>
-    $(document).ready(function () {
-        marked.setOptions({
-            renderer: new marked.Renderer(),
-            gfm: true,
-            tables: true,
-            breaks: true,
-            pedantic: false,
-            sanitize: false,
-            smartLists: false,
-            smartypants: false,
-            highlight: function (code) {
-                return hljs.highlightAuto(code).value;
-            }
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
         });
-        var content = $('#content');
-        var rendered_result = marked(content.text());
-        content.html(rendered_result);
     });
 </script>
 
