@@ -1,5 +1,9 @@
 var blogListGlobal = {};
 
+function handleResetSearchButton() {
+    location.href = '/backend/blogs';
+}
+
 function handleDeleteButton(id) {
     blogListGlobal.blogId = id;
     $('#delete-confirm-modal').modal('show');
