@@ -1,8 +1,26 @@
-var blogEditGlobal = {};
+var blogEditGlobal = {
+    'changed': false
+};
+
+$(document).ready(function () {
+    $('#title').keyup(function () {
+        blogEditGlobal.changed = true;
+    });
+    $('#content').keyup(function () {
+        blogEditGlobal.changed = true;
+    });
+    $('#category').change(function () {
+        blogEditGlobal.changed = true;
+    });
+});
 
 function leaveConfirm(nextSrc) {
     blogEditGlobal.nextSrc = nextSrc;
-    $('#leave-confirm-modal').modal('show');
+    if (blogEditGlobal.changed) {
+        $('#leave-confirm-modal').modal('show');
+    } else {
+        doLeave();
+    }
 }
 
 function doLeave() {
