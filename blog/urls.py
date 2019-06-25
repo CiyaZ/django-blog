@@ -21,7 +21,6 @@ from .views.blog_view import blog
 from .views.pages_view import about, help
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', index),
     path('index', index),
     path('about', about),
