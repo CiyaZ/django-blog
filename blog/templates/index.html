@@ -52,8 +52,14 @@
                                     <img height="90" src="{{ blog.content_img3 }}" />
                                     {% endif %}
                                 </div>
-                                <p class="text-secondary" style="margin-top: 1rem;">所属分类：{{blog.category.category_name}}
-                                    创建时间：{{ blog.create_time }}</p>
+                                <div class="text-secondary" style="margin-top: 1rem;">
+                                    <span>
+                                        所属分类：{{blog.category.category_name}} 
+                                    </span>
+                                    <span style="margin-left: 1rem">
+                                        创建时间：{{ blog.create_time }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         {% endfor %}
@@ -61,10 +67,12 @@
                     <div class="col-lg-4">
                         <div class="card" style="margin-top: 1rem">
                             <div class="card-body" style="text-align: center">
-                                <img width="100" height="100" src="{{ blog_user.avatar }}"
+                                <img width="100" height="100" src="{% if blog_user.avatar is None %}/static/app/image/author.jpg{% else %}{{ blog_user.avatar }}{% endif %}"
                                     style="border-radius: 999px; margin-bottom: 1rem" />
                                 <h5>{{ blog_user.username }}</h5>
+                                {% if blog_user.motto is not None %}
                                 <p class="text-secondary">{{ blog_user.motto }}</p>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="card" style="margin-top: 1rem">
@@ -80,6 +88,7 @@
                                 </div>
                             </div>
                         </div>
+                        {% if link_list %}
                         <div class="card" style="margin-top: 1rem">
                             <div class="card-body">
                                 <h6 class="text-secondary">友情链接</h6>
@@ -93,6 +102,7 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
 

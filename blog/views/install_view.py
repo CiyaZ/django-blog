@@ -2,7 +2,8 @@ import re
 from django.shortcuts import render
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.contrib.auth.hashers import make_password
-from blog.models import BlogUser
+from django.utils.timezone import now
+from blog.models import BlogUser, Category, Blog
 
 
 def install(request):
@@ -39,6 +40,7 @@ def do_install(request):
     if len(password) < 1 or len(password) > 255:
         return HttpResponseBadRequest("Http 400 Bad Request")
 
+    # 初始用户插入
     blogUser = BlogUser(
         pk=1,
         username=username,
@@ -48,4 +50,17 @@ def do_install(request):
         password=make_password(password)
     )
     blogUser.save()
+
+    # 初始分类和文章插入
+    category = Category(category_name='测试分类')
+    category.save()
+    blog = Blog(
+        title='Hello, world!',
+        content='这是一篇默认文章，你可以将其删除，开始你的创作',
+        content_rendered='<p>这是一篇默认文章，你可以将其删除，开始你的创作</p>',
+        content_abstract='这是一篇默认文章，你可以将其删除，开始你的创作',
+        category=category,
+        create_time=now())
+    blog.save()
+
     return HttpResponseRedirect('/index')
