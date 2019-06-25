@@ -19,12 +19,15 @@ from django.urls.conf import include
 from .views.index_view import index
 from .views.blog_view import blog
 from .views.pages_view import about, help
+from .views.install_view import install, do_install
 
 urlpatterns = [
     path('', index),
     path('index', index),
     path('about', about),
     path('help', help),
+    path('install', install),
+    path('install/init', do_install),
     re_path(r'^blogs/(?P<id>[0-9]+)$', blog),
     path('backend/', include('backend.urls'))
 ]

@@ -1,0 +1,51 @@
+import re
+from django.shortcuts import render
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
+from django.contrib.auth.hashers import make_password
+from blog.models import BlogUser
+
+
+def install(request):
+    """初始化用户页面"""
+    return render(request, 'install.html')
+
+
+def do_install(request):
+    """执行用户初始化"""
+    username = request.POST.get('username')
+    email = request.POST.get('email')
+    avatar = request.POST.get('avatar')
+    motto = request.POST.get('motto')
+    password = request.POST.get('password')
+
+    # 非法提交校验
+    if username is None or len(username) < 1 or len(username) > 20 or re.match('^[0-9a-zA-Z]+$', username) is None:
+        return HttpResponseBadRequest("Http 400 Bad Request")
+    if email is not None and email != '':
+        if len(email) < 1 or len(email) > 255:
+            return HttpResponseBadRequest("Http 400 Bad Request")
+    else:
+        email = None
+    if avatar is not None and avatar != '':
+        if len(avatar) < 1 or len(avatar) > 255:
+            return HttpResponseBadRequest("Http 400 Bad Request")
+    else:
+        avatar = None
+    if motto is not None and motto != '':
+        if len(motto) < 1 or len(motto) > 255:
+            return HttpResponseBadRequest("Http 400 Bad Request")
+    else:
+        motto = None
+    if len(password) < 1 or len(password) > 255:
+        return HttpResponseBadRequest("Http 400 Bad Request")
+
+    blogUser = BlogUser(
+        pk=1,
+        username=username,
+        email=email,
+        avatar=avatar,
+        motto=motto,
+        password=make_password(password)
+    )
+    blogUser.save()
+    return HttpResponseRedirect('/index')
