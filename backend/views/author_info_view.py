@@ -22,26 +22,34 @@ def author_info_update(request):
     # 非法提交
     if username is None or len(username) < 1 or len(username) > 20 or re.match('^[0-9a-zA-Z]+$', username) is None:
         return HttpResponseBadRequest()
-    if email is not None:
+    if email is not None and email != '':
         if len(email) < 1 or len(email) > 255:
             return HttpResponseBadRequest()
-    if avatar is not None:
+    else:
+        email = None
+    if avatar is not None and avatar != '':
         if len(avatar) < 1 or len(avatar) > 255:
             return HttpResponseBadRequest()
-    if motto is not None:
+    else:
+        avatar = None
+    if motto is not None and motto != '':
         if len(motto) < 1 or len(motto) > 255:
             return HttpResponseBadRequest()
+    else:
+        motto = None
+
+    print(username)
+    print(email)
+    print(avatar)
+    print(motto)
 
     # 更新
     blog_user = BlogUser.objects.get(id=1)
     if username is not None:
         blog_user.username = username
-    if email is not None:
-        blog_user.email = email
-    if avatar is not None:
-        blog_user.avatar = avatar
-    if motto is not None:
-        blog_user.motto = motto
+    blog_user.email = email
+    blog_user.avatar = avatar
+    blog_user.motto = motto
     blog_user.save()
 
     return render(request, 'author_info.html', {
