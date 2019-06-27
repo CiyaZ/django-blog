@@ -105,7 +105,7 @@
                         {% endif %}
                     </div>
                 </div>
-
+                {% if blog_list_page.has_next or blog_list_page.has_previous %}
                 <ul class="pagination" style="margin-top: 1rem">
                     {% if blog_list_page.has_previous %}
                     <li class="page-item">
@@ -130,6 +130,7 @@
                     </li>
                     {% endif %}
                 </ul>
+                {% endif %}
             </div>
         </div>
         {% include 'widgets/foot.html' %}
