@@ -41,7 +41,7 @@ def do_install(request):
         return HttpResponseBadRequest("Http 400 Bad Request")
 
     # 初始用户插入
-    blogUser = BlogUser(
+    blog_user = BlogUser(
         pk=1,
         username=username,
         email=email,
@@ -49,7 +49,7 @@ def do_install(request):
         motto=motto,
         password=make_password(password)
     )
-    blogUser.save()
+    blog_user.save()
 
     # 初始分类和文章插入
     category = Category(category_name='测试分类')

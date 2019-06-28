@@ -3,6 +3,7 @@ from django.utils.timezone import now
 
 
 class StatisticsMiddleware:
+    """访问统计日志拦截器"""
     def __init__(self, get_response):
         self.get_response = get_response
 

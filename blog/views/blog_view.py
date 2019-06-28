@@ -6,6 +6,7 @@ from ..models import Category
 
 
 def blog(request, id):
+    """文章页面"""
     # 当前用户
     blog_user = BlogUser.objects.get(id=1)
     # 当前文章
