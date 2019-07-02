@@ -8,9 +8,11 @@
     {% load static %}
     <script src="{% static 'jquery/jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'app/common/backtop/backtop.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'global/global.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/common/backtop/backtop.min.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <title>{{ blog_user.username }}的博客</title>
 </head>
@@ -136,5 +138,5 @@
         {% include 'widgets/foot.html' %}
     </div>
 </body>
-
+<script>$.fn.showBacktop();</script>
 </html>
