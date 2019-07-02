@@ -37,6 +37,7 @@ class Blog(models.Model):
     content_img2 = models.CharField(max_length=255, null=True)
     content_img3 = models.CharField(max_length=255, null=True)
     create_time = models.DateTimeField()
+    last_modified_time = models.DateTimeField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):

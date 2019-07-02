@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.urls import path, re_path
 from django.urls.conf import include
-from .views.index_view import index
-from .views.blog_view import blog
-from .views.pages_view import about, help
-from .views.install_view import install, do_install
+from blog.views.index_view import index
+from blog.views.blog_view import blog
+from blog.views.pages_view import about, help
+from blog.views.install_view import install, do_install
+from blog.views.sitemap_view import sitemap
 
 urlpatterns = [
     path('', index),
@@ -28,5 +29,6 @@ urlpatterns = [
     path('install', install),
     path('install/init', do_install),
     re_path(r'^blogs/(?P<id>[0-9]+)$', blog),
-    path('backend/', include('backend.urls'))
+    path('backend/', include('backend.urls')),
+    path('sitemap.xml', sitemap),
 ]

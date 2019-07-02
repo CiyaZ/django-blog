@@ -22,6 +22,8 @@ class LoginMiddleware:
             '/backend/password/update',
             '/backend/config/edit',
             '/backend/config/update',
+            '/backend/tools',
+            '/backend/tools/generate',
             '/backend/statistics',
             '/backend/statistics/blog_query',
             '/backend/statistics/access_query',

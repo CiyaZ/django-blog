@@ -43,12 +43,13 @@
         </div>
         <div class="card" style="margin-top: 1rem">
             <div class="card-body">
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped table-sm">
                     <thead>
                         <tr>
                             <th>标题</th>
                             <th>分类</th>
                             <th>创建时间</th>
+                            <th>最后修改</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -58,6 +59,7 @@
                             <td>{{ blog.title }}</td>
                             <td>{{ blog.category.category_name }}</td>
                             <td>{{ blog.create_time }}</td>
+                            <td>{{ blog.last_modified_time }}</td>
                             <td>
                                 <a class="btn btn-outline-primary" href="/blogs/{{ blog.pk }}" target="_top">预览</a>
                                 <button class="btn btn-outline-success"

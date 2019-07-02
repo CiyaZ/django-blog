@@ -127,7 +127,8 @@ def add_blog(request):
             content_img2=content_img2,
             content_img3=content_img3,
             category=category,
-            create_time=now())
+            create_time=now(),
+            last_modified_time=now())
         blog.save()
         return JsonResponse({
             'id': blog.pk
@@ -167,6 +168,7 @@ def update_blog(request):
         blog.content_img2 = content_img2
         blog.content_img3 = content_img3
         blog.category = category
+        blog.last_modified_time = now()
         blog.save()
 
     return HttpResponse()

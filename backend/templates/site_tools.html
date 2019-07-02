@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'app/backend/site_tools.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'global/global.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <title>站点工具</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">站点地图工具</div>
+            <div class="card-body">
+                <div>
+                    <button title="该操作会在站点工程根目录生成一个sitemap.xml用于SEO索引" id="sitemap-tool-generate-btn" onclick="callGenerateSitemapAsync()" class="btn btn-outline-success">生成站点地图</button>
+                    <button title="你也可以手动跳转到http(s)://域名/sitemap.xml查看" onclick="rootNavToSitemap()" class="btn btn-outline-primary">访问站点地图</button>
+                </div>
+                <div id="sitemap-tool-status" style="margin-top: 1rem"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

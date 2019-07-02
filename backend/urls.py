@@ -7,6 +7,7 @@ from .views.author_info_view import author_info, author_info_update
 from .views.password_edit_view import password_edit, password_update
 from .views.site_config_view import site_config_edit, site_config_update
 from .views.site_statistics_view import site_statistics, blog_statistics_query, access_statistics_query
+from backend.views.site_tools_view import site_tools, do_generate_sitemap
 
 urlpatterns = [
     path('login', login),
@@ -28,6 +29,8 @@ urlpatterns = [
     path('password/update', password_update),
     path('config/edit', site_config_edit),
     path('config/update', site_config_update),
+    path('tools', site_tools),
+    path('tools/generate', do_generate_sitemap),
     path('statistics', site_statistics),
     path('statistics/blog_query', blog_statistics_query),
     path('statistics/access_query', access_statistics_query),
