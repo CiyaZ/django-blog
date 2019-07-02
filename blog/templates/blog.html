@@ -42,12 +42,12 @@
 <script>
     $(document).ready(function() {
         $.fn.showBacktop();
-        document.addEventListener('DOMContentLoaded', () => {
+    });
+    document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('pre code').forEach((block) => {
                 hljs.highlightBlock(block);
             });
         });
-    });
 </script>
 
 </html>
