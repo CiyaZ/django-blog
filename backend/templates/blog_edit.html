@@ -8,11 +8,16 @@
     {% load static %}
     <script src="{% static 'jquery/jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+    <script src="{% static 'codemirror/addon/display/placeholder.js' %}"></script>
+    <script src="{% static 'codemirror/mode/markdown/markdown.js' %}"></script>
     <script src="{% static 'app/backend/blog_edit.js' %}"></script>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'global/global.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <link href="{% static 'codemirror/lib/codemirror.css' %}" rel="stylesheet" />
+    <link href="{% static 'codemirror/theme/idea.css' %}" rel="stylesheet" />
     <title>文章编辑</title>
 </head>
 
@@ -74,7 +79,7 @@
         </div>
     </div>
     <div id="toast-success" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"
-        style="position: absolute; top: 1rem; right: 1rem;">
+        style="position: absolute; top: 1rem; right: 1rem;z-index: 999">
         <div class="toast-header">
             <strong class="mr-auto">操作完成</strong>
             <small>刚刚</small>
@@ -100,5 +105,14 @@
         </div>
     </div>
 </body>
-
+<style>
+.CodeMirror {
+    height: 69vh;
+    border: 1px solid #cbcbcb;
+    border-radius: 5px;
+}
+.CodeMirror pre.CodeMirror-placeholder { 
+    color: #999; 
+}
+</style>
 </html>

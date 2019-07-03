@@ -3,6 +3,7 @@ var blogEditGlobal = {
 };
 
 $(document).ready(function () {
+    // 挂载修改退出提示钩子
     $('#title').keyup(function () {
         blogEditGlobal.changed = true;
     });
@@ -11,6 +12,17 @@ $(document).ready(function () {
     });
     $('#category').change(function () {
         blogEditGlobal.changed = true;
+    });
+    // 加载CodeMirror编辑器
+    var cmEditor = CodeMirror.fromTextArea(document.getElementById('content'), {
+        mode: 'text/x-markdown',
+        lineNumbers: true
+    });
+    cmEditor.on('change', function() {
+        // CodeMirror虽然挂到textarea上，但实际不是textarea实现的，
+        // 这里要把修改同步到原来的textarea上
+        blogEditGlobal.changed = true;
+        $('#content').val(cmEditor.getValue());
     });
 });
 
