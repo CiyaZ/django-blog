@@ -16,11 +16,11 @@ class ConfMiddleware:
 
     def __call__(self, request):
         print(request.path)
-        if not request.path.startswith('/install'):
-            # 如果数据库尚未初始化，直接跳到/install
+        if not request.path.startswith('/backend/install'):
+            # 如果数据库尚未初始化，直接跳到/backend/install
             blog_user = BlogUser.objects.filter(id=1).first()
             if blog_user is None:
-                return HttpResponseRedirect('/install')
+                return HttpResponseRedirect('/backend/install')
 
             # 如果配置信息在session中不存在，载入session
             if 'conf' not in request.session:

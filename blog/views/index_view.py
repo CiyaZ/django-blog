@@ -26,7 +26,7 @@ def index(request):
     # 当前用户
     blog_user = BlogUser.objects.filter(id=1).first()
     if blog_user is None:
-        return HttpResponseRedirect('/install')
+        return HttpResponseRedirect('/backend/install')
 
     # 分类
     category_list = Category.objects.all()

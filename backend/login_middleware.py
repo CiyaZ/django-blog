@@ -39,8 +39,8 @@ class LoginMiddleware:
         self.except_urls = (
             '/backend/login',
             '/backend/dologin',
-            '/install',
-            '/install/init'
+            '/backend/install',
+            '/backend/install/init'
         )
 
     def __call__(self, request):

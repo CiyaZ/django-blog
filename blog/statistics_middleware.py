@@ -13,7 +13,7 @@ class StatisticsMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if not request.path.startswith('/install'):
+        if not request.path.startswith('/backend/install'):
             conf = request.session['conf']['conf_statistics']
             if conf == 'open':
                 url = request.get_full_path()
