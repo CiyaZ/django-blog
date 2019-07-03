@@ -20,12 +20,13 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <form action="categories/new" method="post" class="form-inline">
+                <form action="categories/new" method="post" class="form-inline" onsubmit="return check();">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="category-name" class="sr-only">新建分类名</label>
                         <input type="text" name="category_name" id="category-name" class="form-control"
                             placeholder="新建分类名" autocomplete="false" />
+                        <div class="invalid-feedback" id="category-name-invalid"></div>
                     </div>
                     <input type="submit" class="btn btn-outline-success" value="确认创建" style="margin-left: 1rem" />
                 </form>
