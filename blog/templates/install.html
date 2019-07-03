@@ -25,34 +25,48 @@
                     <div class="card-body">
                         <form action="/install/init" method="post" onsubmit="return check();">
                             {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-lg-3">
+                                    <label for="username" class="sr-only">协议</label>
+                                    <select title="请选择站点访问使用的协议" id="protocol" class="form-control" name="protocol">
+                                        <option selected value="https">HTTPS</option>
+                                        <option selected value="http">HTTP</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-9">
+                                    <label for="username" class="sr-only">域名</label>
+                                    <input title="请输入类似www.google.com这样格式的域名，不要带有 / 等字符，该字段主要用于站点地图，如果不需要可以随意输入" placeholder="您的域名" type="text" class="form-control" id="domain" name="domain" />
+                                    <div class="invalid-feedback" id="domain-invalid"></div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="username">用户名</label>
-                                <input type="text" class="form-control" id="username" name="username" />
+                                <input title="请输入字母和数字组成的用户名，该字段同时用于登入系统后台" type="text" class="form-control" id="username" name="username" />
                                 <div class="invalid-feedback" id="username-invalid"></div>
                             </div>
                             <div class="form-group">
                                 <label for="email">邮箱</label>
-                                <input type="text" class="form-control" id="email" name="email" />
+                                <input title="请输入您的公开电子邮件地址" type="text" class="form-control" id="email" name="email" />
                                 <div class="invalid-feedback" id="email-invalid"></div>
                             </div>
                             <div class="form-group">
                                 <label for="avatar">头像链接</label>
-                                <input type="text" class="form-control" id="avatar" name="avatar" />
+                                <input title="请输入头像图片链接，图片应为正方形，该字段可选，不输入会使用默认图片" type="text" class="form-control" id="avatar" name="avatar" />
                                 <div class="invalid-feedback" id="avatar-invalid"></div>
                             </div>
                             <div class="form-group">
                                 <label for="motto">个人签名</label>
-                                <input type="text" class="form-control" id="motto" name="motto" />
+                                <input title="请输入您的个人签名" type="text" class="form-control" id="motto" name="motto" />
                                 <div class="invalid-feedback" id="motto-invalid"></div>
                             </div>
                             <div class="form-group">
                                 <label for="password">密码</label>
-                                <input type="password" class="form-control" id="password" name="password" />
+                                <input title="请输入密码，该字段用户登入系统后台" type="password" class="form-control" id="password" name="password" />
                                 <div class="invalid-feedback" id="password-invalid"></div>
                             </div>
                             <div class="form-group">
                                 <label for="repassword">再次输入密码</label>
-                                <input type="password" class="form-control" id="repassword" name="repassword" />
+                                <input title="请再次输入密码" type="password" class="form-control" id="repassword" name="repassword" />
                                 <div class="invalid-feedback" id="repassword-invalid"></div>
                             </div>
                             <div style="text-align: right">

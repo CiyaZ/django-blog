@@ -42,10 +42,10 @@
         <div class="card" style="margin-top: 1rem">
             <div class="card-header">
                 <span>访问统计</span>
-                {% if conf.conf_value == 'open' %}
+                {% if conf == 'open' %}
                 <span class="text-success">该功能已开启</span>
                 {% endif %}
-                {% if conf.conf_value == 'close' %}
+                {% if conf == 'close' %}
                 <span class="text-danger">该功能已关闭</span>
                 {% endif %}
             </div>

@@ -44,6 +44,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'blog.conf_middleware.ConfMiddleware',
     'backend.login_middleware.LoginMiddleware',
     'blog.statistics_middleware.StatisticsMiddleware',
 ]

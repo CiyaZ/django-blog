@@ -1,15 +1,20 @@
+"""站点统计功能
+包括文章发布数量统计和后端请求数统计，
+用于提醒站点拥有者文章的内容的发布频率和站点性能
+"""
+from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.utils.timezone import now
-from datetime import datetime, timedelta
-from blog.models import Blog, Category, AccessLog, Conf
+from blog.models import Blog, Category, AccessLog
 
 
 def site_statistics(request):
     """站点统计页面"""
-    conf = Conf.objects.filter(conf_key='conf_statistics').first()
+    # 该配置用于判断站点访问统计是否开启
+    conf_statistics = request.session['conf']['conf_statistics']
     return render(request, 'site_statistics.html', {
-        'conf': conf
+        'conf': conf_statistics
     })
 
 

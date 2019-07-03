@@ -1,8 +1,15 @@
+"""登录拦截器
+用于拦截未授权请求，拦截可配置为仅后台和全站，
+仅后台只拦截对管理后台的请求，
+全站拦截除了登录页面的全部请求，用于私有日记等内容，
+实际部署时静态资源由Nginx处理，不拦截
+"""
 from django.http import HttpResponseRedirect
-from blog.models import Conf
 
 
 class LoginMiddleware:
+    """登录拦截器"""
+
     def __init__(self, get_response):
         self.get_response = get_response
         self.backend_urls = (
@@ -32,34 +39,19 @@ class LoginMiddleware:
         self.except_urls = (
             '/backend/login',
             '/backend/dologin',
+            '/install',
+            '/install/init'
         )
 
     def __call__(self, request):
-        # 配置不存在就加入session
-        if 'conf' not in request.session:
-            conf1 = Conf.objects.filter(conf_key='conf_site_auth').first()
-            conf2 = Conf.objects.filter(conf_key='conf_statistics').first()
-            if conf1 is None:
-                conf1 = Conf(conf_key='conf_site_auth',
-                             conf_value='backend-only')
-                conf1.save()
-            if conf2 is None:
-                conf2 = Conf(conf_key='conf_statistics', conf_value='close')
-                conf2.save()
-            request.session['conf'] = {
-                'conf_site_auth': conf1.conf_value,
-                'conf_statistics': conf2.conf_value
-            }
         # 加载配置
-        if request.session['conf']['conf_site_auth'] == 'backend-only':
+        if request.path in self.backend_urls and request.session['conf']['conf_site_auth'] == 'backend-only':
             # 仅后台拦截
-            if request.path in self.backend_urls:
-                if 'user' not in request.session:
-                    return HttpResponseRedirect('/backend/login')
-        elif request.session['conf']['conf_site_auth'] == 'all':
+            if 'user' not in request.session:
+                return HttpResponseRedirect('/backend/login')
+        elif request.path not in self.except_urls and request.session['conf']['conf_site_auth'] == 'all':
             # 全站拦截
-            if request.path not in self.except_urls:
-                if 'user' not in request.session:
-                    return HttpResponseRedirect('/backend/login')
+            if 'user' not in request.session:
+                return HttpResponseRedirect('/backend/login')
         response = self.get_response(request)
         return response

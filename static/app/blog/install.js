@@ -1,4 +1,7 @@
 function check() {
+    var protocolInput = $('#protocol');
+    var domainInput = $('#domain');
+    var domainInvalid = $('#domain-invalid');
     var usernameInput = $('#username');
     var usernameInvalid = $('#username-invalid');
     var emailInput = $('#email');
@@ -12,6 +15,7 @@ function check() {
     var repasswordInput = $('#repassword');
     var repasswordInvalid = $('#repassword-invalid');
 
+    domainInput.removeClass('is-invalid');
     usernameInput.removeClass('is-invalid');
     emailInput.removeClass('is-invalid');
     avatarInput.removeClass('is-invalid');
@@ -19,6 +23,8 @@ function check() {
     passwordInput.removeClass('is-invalid');
     repasswordInput.removeClass('is-invalid');
 
+    var protocol = protocolInput.val();
+    var domain = domainInput.val();
     var username = usernameInput.val();
     var email = emailInput.val();
     var avatar = avatarInput.val();
@@ -27,6 +33,18 @@ function check() {
     var repassword = repasswordInput.val();
 
     var checked = true;
+
+    if (domain.length < 1 || domain.length > 255) {
+        checked = false;
+        domainInput.addClass('is-invalid');
+        domainInvalid.text('域名长度在1-255之间');
+    }
+
+    if(domain.indexOf('/') !== -1) {
+        checked = false;
+        domainInput.addClass('is-invalid');
+        domainInvalid.text('输入域名不要带有/等字符');
+    }
 
     if (username.length < 1 || username.length > 20) {
         checked = false;
