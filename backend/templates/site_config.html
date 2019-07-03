@@ -28,7 +28,7 @@
         {% endif %}
         <div class="card">
             <div class="card-body">
-                <form action="/backend/config/update" method="post">
+                <form action="/backend/config/update" method="post" onsubmit="return check();">
                     {% csrf_token %}
                     <div class="form-group row">
                         <label for="conf-site-auth" class="col-sm-2 col-form-label">内容访问控制</label>
@@ -48,8 +48,24 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="conf-protocol" class="col-sm-2 col-form-label">主要访问协议</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="conf-protocol" name="conf_protocol">
+                                <option {% if conf_protocol == 'https' %}selected="selected"{% endif %} value="https">HTTPS</option>
+                                <option {% if conf_protocol == 'http' %}selected="selected"{% endif %} value="http">HTTP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="conf-domain" class="col-sm-2 col-form-label">站点域名</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" id="conf-domain" name="conf_domain" value="{{ conf_domain }}" />
+                            <div class="invalid-feedback" id="domain-invalid"></div>
+                        </div>
+                    </div>
                     <div style="text-align: right">
-                        <input type="reset" value="恢复默认" class="btn btn-outline-danger" />
+                        <input type="reset" value="重置表单" class="btn btn-outline-danger" />
                         <input type="submit" value="提交设置" class="btn btn-outline-success" />
                     </div>
                 </form>
