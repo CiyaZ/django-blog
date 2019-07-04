@@ -1,6 +1,6 @@
 # blog
 
-30分钟搭建的博客系统，基于Django。
+30分钟搭建的博客系统，基于Django2.2。
 
 ![](doc/1.png)
 
@@ -21,7 +21,7 @@ git clone https://github.com/CiyaZ/django-blog.git
 ### 安装Python依赖包
 
 ```
-pip3 install django markdown mysqlclient uwsgi
+pip3 install django markdown mysqlclient uwsgi lxml
 ```
 
 ### 配置数据库
@@ -41,7 +41,7 @@ python3 manage.py migrate
 
 ### 配置uwsgi
 
-假设工程路径为`/home/ubuntu/blog`，部署到`8080`端口，编写以下配置：
+动态请求可以通过`uwsgi`处理。假设工程路径为`/home/ubuntu/blog`，部署到`8080`端口，编写以下配置：
 
 ```ini
 [uwsgi]
@@ -82,4 +82,4 @@ sudo nginx -s reload
 
 ### 初始化
 
-访问`/`地址，输入用户名和密码，初始化完成。
+访问`/backend/install`地址，输入初始配置信息即可。访问`/backend/dashboard`地址，可以登入管理后台，初始化后会自动创建`测试分类`和一篇标题为`Hello, world!`的默认文章，可以直接删除。
