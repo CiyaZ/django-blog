@@ -81,7 +81,8 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
-            'autocommit': True
+            'autocommit': True,
+            'charset':'utf8mb4'
         }
     }
 }
