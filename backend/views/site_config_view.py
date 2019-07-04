@@ -12,12 +12,14 @@ def site_config_edit(request):
     conf_statistics = request.session['conf']['conf_statistics']
     conf_protocol = request.session['conf']['conf_protocol']
     conf_domain = request.session['conf']['conf_domain']
+    conf_sitemap_trigger = request.session['conf']['conf_sitemap_trigger']
 
     return render(request, 'site_config.html', {
         'conf_site_auth': conf_site_auth,
         'conf_statistics': conf_statistics,
         'conf_protocol': conf_protocol,
-        'conf_domain': conf_domain
+        'conf_domain': conf_domain,
+        'conf_sitemap_trigger': conf_sitemap_trigger
     })
 
 
@@ -27,6 +29,7 @@ def site_config_update(request):
     conf_statistics = request.POST.get('conf_statistics')
     conf_protocol = request.POST.get('conf_protocol')
     conf_domain = request.POST.get('conf_domain')
+    conf_sitemap_trigger = request.POST.get('conf_sitemap_trigger')
 
     # 非法提交
     if conf_site_auth not in ('backend-only', 'all'):
@@ -36,6 +39,8 @@ def site_config_update(request):
     if conf_protocol not in ('http', 'https'):
         return HttpResponseBadRequest("Http 400 Bad Request")
     if conf_domain is None or conf_domain == '' or len(conf_domain) > 255:
+        return HttpResponseBadRequest("Http 400 Bad Request")
+    if conf_sitemap_trigger not in ('open', 'close'):
         return HttpResponseBadRequest("Http 400 Bad Request")
 
     # 保存配置到数据库
@@ -51,17 +56,17 @@ def site_config_update(request):
     conf4 = Conf.objects.filter(conf_key='conf_domain').first()
     conf4.conf_value = conf_domain
     conf4.save()
+    conf5 = Conf.objects.filter(conf_key='conf_sitemap_trigger').first()
+    conf5.conf_value = conf_sitemap_trigger
+    conf5.save()
 
     # 刷新session中的配置
-    conf1 = Conf.objects.filter(conf_key='conf_site_auth').first()
-    conf2 = Conf.objects.filter(conf_key='conf_statistics').first()
-    conf3 = Conf.objects.filter(conf_key='conf_domain').first()
-    conf4 = Conf.objects.filter(conf_key='conf_protocol').first()
     request.session['conf'] = {
         'conf_site_auth': conf1.conf_value,
         'conf_statistics': conf2.conf_value,
-        'conf_domain': conf3.conf_value,
-        'conf_protocol': conf4.conf_value
+        'conf_protocol': conf3.conf_value,
+        'conf_domain': conf4.conf_value,
+        'conf_sitemap_trigger': conf5.conf_value
     }
 
     return render(request, 'site_config.html', {
@@ -69,5 +74,6 @@ def site_config_update(request):
         'conf_site_auth': conf_site_auth,
         'conf_statistics': conf_statistics,
         'conf_protocol': conf_protocol,
-        'conf_domain': conf_domain
+        'conf_domain': conf_domain,
+        'conf_sitemap_trigger': conf_sitemap_trigger
     })

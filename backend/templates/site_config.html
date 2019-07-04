@@ -64,6 +64,15 @@
                             <div class="invalid-feedback" id="domain-invalid"></div>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="conf-sitemap-trigger" class="col-sm-2 col-form-label">站点地图生成</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="conf-sitemap-trigger" name="conf_sitemap_trigger">
+                                <option {% if conf_sitemap_trigger == 'open' %}selected="selected"{% endif %} value="open">文章编辑触发</option>
+                                <option {% if conf_sitemap_trigger == 'close' %}selected="selected"{% endif %} value="close">手动触发</option>
+                            </select>
+                        </div>
+                    </div>
                     <div style="text-align: right">
                         <input type="reset" value="重置表单" class="btn btn-outline-danger" />
                         <input type="submit" value="提交设置" class="btn btn-outline-success" />

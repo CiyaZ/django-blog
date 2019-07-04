@@ -15,7 +15,6 @@ class ConfMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        print(request.path)
         if not request.path.startswith('/backend/install'):
             # 如果数据库尚未初始化，直接跳到/backend/install
             blog_user = BlogUser.objects.filter(id=1).first()
@@ -28,11 +27,13 @@ class ConfMiddleware:
                 conf2 = Conf.objects.filter(conf_key='conf_statistics').first()
                 conf3 = Conf.objects.filter(conf_key='conf_domain').first()
                 conf4 = Conf.objects.filter(conf_key='conf_protocol').first()
+                conf5 = Conf.objects.filter(conf_key='conf_sitemap_trigger').first()
                 request.session['conf'] = {
                     'conf_site_auth': conf1.conf_value,
                     'conf_statistics': conf2.conf_value,
                     'conf_domain': conf3.conf_value,
-                    'conf_protocol': conf4.conf_value
+                    'conf_protocol': conf4.conf_value,
+                    'conf_sitemap_trigger': conf5.conf_value
                 }
             response = self.get_response(request)
             return response

@@ -1,7 +1,8 @@
+"""展示和修改博主信息控制器"""
+import re
 from django.shortcuts import render
 from django.http import HttpResponseBadRequest
 from blog.models import BlogUser
-import re
 
 
 def author_info(request):
@@ -20,28 +21,23 @@ def author_info_update(request):
     motto = request.POST.get('motto')
 
     # 非法提交
-    if username is None or len(username) < 1 or len(username) > 20 or re.match('^[0-9a-zA-Z]+$', username) is None:
+    if username is None or username == '' or len(username) > 20 or re.match('^[0-9a-zA-Z]+$', username) is None:
         return HttpResponseBadRequest()
     if email is not None and email != '':
-        if len(email) < 1 or len(email) > 255:
+        if email == '' or len(email) > 255:
             return HttpResponseBadRequest()
     else:
         email = None
     if avatar is not None and avatar != '':
-        if len(avatar) < 1 or len(avatar) > 255:
+        if avatar == '' or len(avatar) > 255:
             return HttpResponseBadRequest()
     else:
         avatar = None
     if motto is not None and motto != '':
-        if len(motto) < 1 or len(motto) > 255:
+        if motto == '' or len(motto) > 255:
             return HttpResponseBadRequest()
     else:
         motto = None
-
-    print(username)
-    print(email)
-    print(avatar)
-    print(motto)
 
     # 更新
     blog_user = BlogUser.objects.get(id=1)

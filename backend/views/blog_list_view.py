@@ -1,10 +1,13 @@
+"""文章增删改查控制器
+"""
+import re
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.utils.timezone import now
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest, JsonResponse
 import markdown
-import re
 from blog.models import Blog, Category
+from backend.utils.sitemap_generator import generate_sitemap
 
 
 def blog_list(request):
@@ -76,6 +79,12 @@ def delete_blog(request):
     id = request.GET.get('id')
     if id is not None:
         Blog.objects.get(pk=id).delete()
+    
+    # 站点地图更新自动触发
+    conf_sitemap_trigger = request.session['conf']['conf_sitemap_trigger']
+    if conf_sitemap_trigger == 'open':
+        generate_sitemap()
+
     return HttpResponseRedirect('/backend/blogs')
 
 
@@ -130,6 +139,12 @@ def add_blog(request):
             create_time=now(),
             last_modified_time=now())
         blog.save()
+
+        # 站点地图更新自动触发
+        conf_sitemap_trigger = request.session['conf']['conf_sitemap_trigger']
+        if conf_sitemap_trigger == 'open':
+            generate_sitemap()
+
         return JsonResponse({
             'id': blog.pk
         })
@@ -170,6 +185,11 @@ def update_blog(request):
         blog.category = category
         blog.last_modified_time = now()
         blog.save()
+
+    # 站点地图更新自动触发
+    conf_sitemap_trigger = request.session['conf']['conf_sitemap_trigger']
+    if conf_sitemap_trigger == 'open':
+        generate_sitemap()
 
     return HttpResponse()
 

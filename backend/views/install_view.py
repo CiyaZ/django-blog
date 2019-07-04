@@ -91,9 +91,11 @@ def do_install(request):
     conf2 = Conf(conf_key='conf_statistics', conf_value='close')
     conf3 = Conf(conf_key='conf_domain', conf_value=domain)
     conf4 = Conf(conf_key='conf_protocol', conf_value=protocol)
+    conf5 = Conf(conf_key='conf_sitemap_trigger', conf_value='open')
     conf1.save()
     conf2.save()
     conf3.save()
     conf4.save()
+    conf5.save()
 
     return HttpResponseRedirect('/index')
