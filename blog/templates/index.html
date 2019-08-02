@@ -36,6 +36,9 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8">
+                        {% if pattern != None and pattern != '' and blog_list_page.object_list.count == 0 %}
+                        <p style="color: #cbcbcb">搜索结果为空</p>
+                        {% endif %}
                         {% for blog in blog_list_page.object_list %}
                         <div class="card" style="margin-top: 1rem">
                             <div class="card-body">
