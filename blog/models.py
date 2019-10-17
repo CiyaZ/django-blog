@@ -37,6 +37,7 @@ class Blog(models.Model):
     content_img2 = models.CharField(max_length=255, null=True)
     content_img3 = models.CharField(max_length=255, null=True)
     create_time = models.DateTimeField()
+    floors = models.IntegerField(default=0)
     last_modified_time = models.DateTimeField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
@@ -59,3 +60,16 @@ class AccessLog(models.Model):
     url = models.CharField(max_length=255)
     user_agent = models.CharField(max_length=255)
     access_time = models.DateTimeField()
+
+
+class Reply(models.Model):
+    """博客评论"""
+    nickname = models.CharField(max_length=20)
+    email = models.CharField(max_length=255)
+    url = models.CharField(max_length=255, null=True)
+    floor_index = models.IntegerField(default=0)
+    content = models.TextField(max_length=65535)
+    blog = models.ForeignKey(Blog, on_delete=models.SET_NULL, null=True)
+    parent_reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name='ref_parent_reply')
+    root_reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name='ref_root_reply')
+    create_time = models.DateTimeField()

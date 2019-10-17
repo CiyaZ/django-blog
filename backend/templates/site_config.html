@@ -40,6 +40,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="conf-reply-enabled" class="col-sm-2 col-form-label">评论系统开关</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="conf-reply-enabled" name="conf_reply_enabled">
+                                <option {% if conf_reply_enabled == 'open' %}selected="selected"{% endif %} value="open">开启</option>
+                                <option {% if conf_reply_enabled == 'close' %}selected="selected"{% endif %} value="close">关闭</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="conf-statistics" class="col-sm-2 col-form-label">访问量统计</label>
                         <div class="col-sm-4">
                             <select class="form-control" id="conf-statistics" name="conf_statistics">

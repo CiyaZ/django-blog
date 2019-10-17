@@ -17,6 +17,7 @@ from django.urls import path, re_path
 from django.urls.conf import include
 from blog.views.index_view import index
 from blog.views.blog_view import blog
+from blog.views.blog_view import add_reply, load_sub_replies
 from blog.views.pages_view import about, help
 from blog.views.sitemap_view import sitemap
 
@@ -26,6 +27,8 @@ urlpatterns = [
     path('about', about),
     path('help', help),
     re_path(r'^blogs/(?P<id>[0-9]+)$', blog),
+    path('replies/add', add_reply),
+    path('replies/sub', load_sub_replies),
     path('backend/', include('backend.urls')),
     path('sitemap.xml', sitemap),
 ]

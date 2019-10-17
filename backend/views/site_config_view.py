@@ -13,13 +13,15 @@ def site_config_edit(request):
     conf_protocol = request.session['conf']['conf_protocol']
     conf_domain = request.session['conf']['conf_domain']
     conf_sitemap_trigger = request.session['conf']['conf_sitemap_trigger']
+    conf_reply_enabled = request.session['conf']['conf_reply_enabled']
 
     return render(request, 'site_config.html', {
         'conf_site_auth': conf_site_auth,
         'conf_statistics': conf_statistics,
         'conf_protocol': conf_protocol,
         'conf_domain': conf_domain,
-        'conf_sitemap_trigger': conf_sitemap_trigger
+        'conf_sitemap_trigger': conf_sitemap_trigger,
+        'conf_reply_enabled': conf_reply_enabled
     })
 
 
@@ -30,6 +32,7 @@ def site_config_update(request):
     conf_protocol = request.POST.get('conf_protocol')
     conf_domain = request.POST.get('conf_domain')
     conf_sitemap_trigger = request.POST.get('conf_sitemap_trigger')
+    conf_reply_enabled = request.POST.get('conf_reply_enabled')
 
     # 非法提交
     if conf_site_auth not in ('backend-only', 'all'):
@@ -41,6 +44,8 @@ def site_config_update(request):
     if conf_domain is None or conf_domain == '' or len(conf_domain) > 255:
         return HttpResponseBadRequest("Http 400 Bad Request")
     if conf_sitemap_trigger not in ('open', 'close'):
+        return HttpResponseBadRequest("Http 400 Bad Request")
+    if conf_reply_enabled not in ('open', 'close'):
         return HttpResponseBadRequest("Http 400 Bad Request")
 
     # 保存配置到数据库
@@ -59,6 +64,9 @@ def site_config_update(request):
     conf5 = Conf.objects.filter(conf_key='conf_sitemap_trigger').first()
     conf5.conf_value = conf_sitemap_trigger
     conf5.save()
+    conf6 = Conf.objects.filter(conf_key='conf_reply_enabled').first()
+    conf6.conf_value = conf_reply_enabled
+    conf6.save()
 
     # 刷新session中的配置
     request.session['conf'] = {
@@ -66,7 +74,8 @@ def site_config_update(request):
         'conf_statistics': conf2.conf_value,
         'conf_protocol': conf3.conf_value,
         'conf_domain': conf4.conf_value,
-        'conf_sitemap_trigger': conf5.conf_value
+        'conf_sitemap_trigger': conf5.conf_value,
+        'conf_reply_enabled': conf6.conf_value
     }
 
     return render(request, 'site_config.html', {
@@ -75,5 +84,6 @@ def site_config_update(request):
         'conf_statistics': conf_statistics,
         'conf_protocol': conf_protocol,
         'conf_domain': conf_domain,
-        'conf_sitemap_trigger': conf_sitemap_trigger
+        'conf_sitemap_trigger': conf_sitemap_trigger,
+        'conf_reply_enabled': conf_reply_enabled
     })
