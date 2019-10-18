@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'app/backend/reply_list.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'global/global.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <title>评论列表</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="card" style="margin-top: 1rem">
+            <div class="card-body">
+                <table class="table table-hover table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>用户名</th>
+                            <th>邮箱</th>
+                            <th>评论时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reply in reply_list_page.object_list %}
+                        <tr>
+                            <td>{{ reply.nickname }}</td>
+                            <td>{{ reply.email }}</td>
+                            <td>{{ reply.create_time }}</td>
+                            <td>
+                                <button class="btn btn-outline-primary" onclick="fillReplyViewModal('{{ reply.nickname }}', '{{ reply.content }}')">查看</button>
+                                <button class="btn btn-outline-primary" onclick="navTo('{{ reply.blog.pk }}')">文章</button>
+                                <button class="btn btn-outline-danger"
+                                    onclick="handleDeleteButton({{ reply.pk }})">删除</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <ul class="pagination" style="margin-top: 1rem">
+                    {% if reply_list_page.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="/backend/replies?page={{ reply_list_page.previous_page_number }}">
+                            <span>&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% for page_btn in page_btn_list %}
+                    <li class="page-item {%if page_btn == current_page %}active{% endif %}">
+                        <a class="page-link"
+                            href="/backend/replies?page={{ page_btn }}">{{ page_btn }}</a>
+                    </li>
+                    {% endfor %}
+                    {% if reply_list_page.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="/backend/replies?page={{ reply_list_page.next_page_number }}">
+                            <span>&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-confirm-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">警告</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>你真的要将这篇评论删除吗？</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="handleConfirmDeleteButton()">确认</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="reply-view-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reply-modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="reply-modal-content"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
