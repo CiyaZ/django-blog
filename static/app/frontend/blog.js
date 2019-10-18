@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 $(document).ready(function () {
     // 返回顶部
     $.fn.showBacktop();
+    // 页面默认展开评论
+    $('.load-sub-reply').trigger('click');
 });
 
 function loadSubReplies(node, replyId) {

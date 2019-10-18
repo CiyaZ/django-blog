@@ -67,7 +67,7 @@
                     <div style="text-align: right">
                         {% with ref_root_reply_cnt=reply.ref_root_reply.count %}
                             {% if ref_root_reply_cnt != 0 %}
-                                <a href="javascript:void(0);" style="text-decoration: none; margin-right: 2rem" onclick="loadSubReplies(this, '{{ reply.id }}')">展开评论（{{ ref_root_reply_cnt }}）</a>
+                                <a class="load-sub-reply" href="javascript:void(0);" style="text-decoration: none; margin-right: 2rem" onclick="loadSubReplies(this, '{{ reply.id }}')">展开评论（{{ ref_root_reply_cnt }}）</a>
                             {% endif %}
                         {% endwith %}
                         <a href="#reply-content" style="text-decoration: none; margin-right: 2rem" onclick="initSubReply('{{ reply.id }}', '{{ reply.nickname }}', '{{ reply.id }}')">回复</a>
