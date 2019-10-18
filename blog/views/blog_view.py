@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponseBadRequest
 from django.utils.timezone import now
 import hashlib
 from ..models import BlogUser
@@ -34,6 +34,16 @@ def add_reply(request):
         blog_id = request.POST.get('blogId')
         parent_reply_id = request.POST.get('parentReplyId')
         root_reply_id = request.POST.get('rootReplyId')
+
+        # 非法提交
+        if nickname is None or len(nickname) < 1 or len(nickname) > 20:
+            return HttpResponseBadRequest("Http 400 Bad Request")
+        if email is None or len(email) < 1 or len(email) > 50:
+            return HttpResponseBadRequest("Http 400 Bad Request")
+        if len(url) > 255:
+            return HttpResponseBadRequest("Http 400 Bad Request")
+        if content is None or len(content) < 1 or len(content) > 1000:
+            return HttpResponseBadRequest("Http 400 Bad Request")
 
         if parent_reply_id == '':
             parent_reply_id = None

@@ -94,10 +94,14 @@ function replyFormCheck() {
     urlInput.removeClass('is-invalid');
     replyContentInput.removeClass('is-invalid');
 
-    var nickname = nicknameInput.val();
-    var email = emailInput.val();
-    var url = urlInput.val();
-    var replyContent = replyContentInput.val();
+    var nickname = $.trim(nicknameInput.val());
+    nicknameInput.val(nickname);
+    var email = $.trim(emailInput.val());
+    emailInput.val(email);
+    var url = $.trim(urlInput.val());
+    urlInput.val(url);
+    var replyContent = $.trim(replyContentInput.val());
+    replyContentInput.val(replyContent);
 
     var checked = true;
 
