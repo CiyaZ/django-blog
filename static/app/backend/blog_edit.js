@@ -18,7 +18,7 @@ $(document).ready(function () {
         mode: 'text/x-markdown',
         lineNumbers: true
     });
-    cmEditor.on('change', function() {
+    cmEditor.on('change', function () {
         // CodeMirror虽然挂到textarea上，但实际不是textarea实现的，
         // 这里要把修改同步到原来的textarea上
         blogEditGlobal.changed = true;
@@ -117,4 +117,29 @@ function postBlog() {
             });
         }
     }
+}
+
+function previewBlog() {
+    var content = $('#content');
+    var csrf = $('[name="csrfmiddlewaretoken"]');
+    $.ajax({
+        type: "POST",
+        async: true,
+        url: '/backend/blogs/preview',
+        data: {
+            'csrfmiddlewaretoken': csrf.val(),
+            'content': content.val()
+        },
+        success: function (msg) {
+            if (msg.result === '') {
+                $('#content-preview').html('（无内容）');
+            } else {
+                $('#content-preview').html(msg.result);
+            }
+            $('#preview-modal').modal('show');
+        },
+        error: function (err) {
+            $('#toast-error').toast('show');
+        }
+    });
 }

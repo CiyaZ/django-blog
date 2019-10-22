@@ -3,7 +3,7 @@
 from django.urls import path
 from backend.views.login_view import login, do_login, do_logout
 from backend.views.dashboard_view import dashboard
-from backend.views.blog_list_view import blog_list, delete_blog, edit_blog, add_blog, update_blog
+from backend.views.blog_list_view import blog_list, delete_blog, edit_blog, add_blog, update_blog, preview_blog
 from backend.views.reply_list_view import reply_list, delete_reply
 from backend.views.category_list_view import category_list, add_category, delete_category
 from backend.views.author_info_view import author_info, author_info_update
@@ -24,6 +24,7 @@ urlpatterns = [
     path('blogs/add', add_blog),
     path('blogs/update', update_blog),
     path('blogs/delete', delete_blog),
+    path('blogs/preview', preview_blog),
     path('replies', reply_list),
     path('replies/delete', delete_reply),
     path('categories', category_list),

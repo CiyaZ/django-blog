@@ -107,6 +107,15 @@ def edit_blog(request):
     })
 
 
+def preview_blog(request):
+    """markdown预览"""
+    content = request.POST.get('content')
+    content_rendered = markdown.markdown(content, extensions=['markdown.extensions.extra', 'markdown.extensions.codehilite', 'markdown.extensions.tables'])
+    return JsonResponse({
+        'result': content_rendered
+    })
+
+
 def add_blog(request):
     """创建文章"""
     title = request.POST.get('title')

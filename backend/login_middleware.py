@@ -20,6 +20,7 @@ class LoginMiddleware:
             '/backend/blogs/add',
             '/backend/blogs/update',
             '/backend/blogs/delete',
+            '/backend/blogs/preview',
             '/backend/replies',
             '/backend/replies/delete',
             '/backend/categories',
