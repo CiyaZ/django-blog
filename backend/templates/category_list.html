@@ -47,7 +47,7 @@
                             <td>{{ c.category_name }}</td>
                             <td>
                                 <a href="/backend/blogs?category={{ c.pk }}" class="btn btn-outline-primary">查看</a>
-                                <button onclick="handleDeleteButton({{ c.pk }})" class="btn btn-danger">删除</button>
+                                <button onclick="handleDeleteButton({{ c.pk }})" class="btn btn-outline-danger">删除</button>
                             </td>
                         </tr>
                         {% endfor %}
