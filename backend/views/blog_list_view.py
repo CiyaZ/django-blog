@@ -92,11 +92,11 @@ def edit_blog(request):
     """编辑文章页面，如果是更新，回显文章Markdown源码到表单"""
     id = request.GET.get('id')
     blog = None
-    if id != None:
+    if id is not None:
         blog = Blog.objects.get(id=id)
 
     action = 'add'
-    if blog != None:
+    if blog is not None:
         action = 'update'
 
     category_list = Category.objects.all()
