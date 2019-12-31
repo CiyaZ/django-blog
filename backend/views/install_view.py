@@ -92,11 +92,13 @@ def do_install(request):
     conf4 = Conf(conf_key='conf_protocol', conf_value=protocol)
     conf5 = Conf(conf_key='conf_sitemap_trigger', conf_value='open')
     conf6 = Conf(conf_key='conf_reply_enabled', conf_value='open')
+    conf7 = Conf(conf_key='conf_reply_precheck', conf_value='open')
     conf1.save()
     conf2.save()
     conf3.save()
     conf4.save()
     conf5.save()
     conf6.save()
+    conf7.save()
 
     return HttpResponseRedirect('/index')

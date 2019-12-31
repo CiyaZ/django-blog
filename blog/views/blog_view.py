@@ -14,7 +14,7 @@ def blog(request, id):
     # 当前文章
     blog = Blog.objects.get(id=id)
     # 评论信息
-    replies = Reply.objects.filter(blog_id=id, root_reply_id=None)
+    replies = Reply.objects.filter(blog_id=id, checked=True, root_reply_id=None)
 
     return render(request, 'blog.html', {
         'blog_user': blog_user,
@@ -57,7 +57,12 @@ def add_reply(request):
             ref_blog.floors = floor_index
             ref_blog.save()
 
-        reply = Reply(nickname=nickname, email=email, url=url, content=content, blog_id=blog_id,
+        conf_reply_precheck = request.session['conf']['conf_reply_precheck']
+        checked = True
+        if conf_reply_precheck == 'open':
+            checked = False
+
+        reply = Reply(nickname=nickname, email=email, url=url, content=content, blog_id=blog_id, checked=checked,
                       parent_reply_id=parent_reply_id, root_reply_id=root_reply_id, floor_index=floor_index,
                       create_time=now())
         reply.save()
@@ -74,7 +79,7 @@ def load_sub_replies(request):
         root_reply_id = request.GET.get('replyId')
         if root_reply_id is None or root_reply_id == '':
             return JsonResponse({})
-        replies = Reply.objects.filter(root_reply_id=root_reply_id)
+        replies = Reply.objects.filter(root_reply_id=root_reply_id, checked=True)
 
         result_json = {'data': []}
         for reply in replies:

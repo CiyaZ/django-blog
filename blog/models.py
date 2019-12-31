@@ -70,6 +70,7 @@ class Reply(models.Model):
     floor_index = models.IntegerField(default=0)
     content = models.TextField(max_length=65535)
     blog = models.ForeignKey(Blog, on_delete=models.SET_NULL, null=True)
+    checked = models.BooleanField(default=True, null=False)
     parent_reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name='ref_parent_reply')
     root_reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, related_name='ref_root_reply')
     create_time = models.DateTimeField()

@@ -1,9 +1,12 @@
-// hightlight.js 初始化
+/**
+ * hightlight.js 初始化应用代码高亮
+ */
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('pre code').forEach((block) => {
         hljs.highlightBlock(block);
     });
 });
+
 $(document).ready(function () {
     // 返回顶部
     $.fn.showBacktop();
@@ -11,6 +14,11 @@ $(document).ready(function () {
     $('.load-sub-reply').trigger('click');
 });
 
+/**
+ * 异步加载子评论
+ * @param node 父DOM节点
+ * @param replyId 父评论ID
+ */
 function loadSubReplies(node, replyId) {
     var divNode = $('#sub-' + replyId + '-replies');
     if (divNode.children().length === 0) {
@@ -63,6 +71,12 @@ function loadSubReplies(node, replyId) {
     }
 }
 
+/**
+ * 提交子评论，在回复表单中初始化
+ * @param parentReplyId 父评论ID
+ * @param parentReplyName 父级评论的评论者名字
+ * @param rootReplyId 当前评论树根节点ID
+ */
 function initSubReply(parentReplyId, parentReplyName, rootReplyId) {
     $('#parentReplyId').val(parentReplyId);
     $('#rootReplyId').val(rootReplyId);
@@ -71,6 +85,9 @@ function initSubReply(parentReplyId, parentReplyName, rootReplyId) {
     $('#reply-content').val('回复 ' + parentReplyName + '：');
 }
 
+/**
+ * 提交根评论，在回复表单中初始化
+ */
 function initRootReply() {
     $('#parentReplyId').val('');
     $('#rootReplyId').val('');
@@ -79,6 +96,10 @@ function initRootReply() {
     $('#reply-content').val('');
 }
 
+/**
+ * 回复表单前端校验
+ * @returns {boolean} 校验结果直接应用于页面表单提交
+ */
 function replyFormCheck() {
     var nicknameInput = $('#nickname');
     var nicknameInvalid = $('#nickname-invalid');

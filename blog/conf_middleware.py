@@ -29,13 +29,15 @@ class ConfMiddleware:
                 conf4 = Conf.objects.filter(conf_key='conf_protocol').first()
                 conf5 = Conf.objects.filter(conf_key='conf_sitemap_trigger').first()
                 conf6 = Conf.objects.filter(conf_key='conf_reply_enabled').first()
+                conf7 = Conf.objects.filter(conf_key='conf_reply_precheck').first()
                 request.session['conf'] = {
                     'conf_site_auth': conf1.conf_value,
                     'conf_statistics': conf2.conf_value,
                     'conf_domain': conf3.conf_value,
                     'conf_protocol': conf4.conf_value,
                     'conf_sitemap_trigger': conf5.conf_value,
-                    'conf_reply_enabled': conf6.conf_value
+                    'conf_reply_enabled': conf6.conf_value,
+                    'conf_reply_precheck': conf7.conf_value
                 }
             response = self.get_response(request)
             return response

@@ -44,3 +44,14 @@ def delete_reply(request):
         Reply.objects.get(pk=reply_id).delete()
 
     return HttpResponseRedirect('/backend/replies')
+
+
+def check_reply(request):
+    """确认审核评论"""
+    reply_id = request.GET.get('id')
+    if reply_id is not None:
+        reply = Reply.objects.get(pk=reply_id)
+        reply.checked = True
+        reply.save()
+
+    return HttpResponseRedirect('/backend/replies')

@@ -49,6 +49,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="conf-reply-precheck" class="col-sm-2 col-form-label">评论主动审核</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="conf-reply-precheck" name="conf_reply_precheck">
+                                <option {% if conf_reply_precheck == 'open' %}selected="selected"{% endif %} value="open">开启</option>
+                                <option {% if conf_reply_precheck == 'close' %}selected="selected"{% endif %} value="close">关闭</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="conf-statistics" class="col-sm-2 col-form-label">访问量统计</label>
                         <div class="col-sm-4">
                             <select class="form-control" id="conf-statistics" name="conf_statistics">
