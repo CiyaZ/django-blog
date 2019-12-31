@@ -16,7 +16,8 @@ $(document).ready(function () {
     // 加载CodeMirror编辑器
     var cmEditor = CodeMirror.fromTextArea(document.getElementById('content'), {
         mode: 'text/x-markdown',
-        lineNumbers: true
+        lineNumbers: true,
+        lineWrapping: true
     });
     cmEditor.on('change', function () {
         // CodeMirror虽然挂到textarea上，但实际不是textarea实现的，

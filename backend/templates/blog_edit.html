@@ -46,18 +46,18 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="form-group" style="margin-left: 1rem">
+                    <div style="margin-left: 1rem">
                         <button id="btn-preview" type="button" class="btn btn-outline-primary" onclick="previewBlog()">渲染预览</button>
+                    </div>
+                    <div style="margin-left: 1rem">
+                        <button class="btn btn-outline-success" onclick="postBlog()">发布文章</button>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="content" class="sr-only">正文</label>
-                    <textarea id="content" class="form-control" style="height: 69vh;" name="content"
+                    <textarea id="content" class="form-control" name="content"
                         placeholder="正文，支持Markdown语法">{% if action == 'update' %}{{blog.content}}{% endif %}</textarea>
                     <div class="invalid-feedback" id="content-invalid"></div>
-                </div>
-                <div style="text-align: right">
-                    <button class="btn btn-outline-success" onclick="postBlog()">提交</button>
                 </div>
             </form>
         </div>
@@ -128,7 +128,7 @@
 </body>
 <style>
 .CodeMirror {
-    height: 69vh;
+    height: 75vh;
     border: 1px solid #cbcbcb;
     border-radius: 5px;
 }
