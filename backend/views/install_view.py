@@ -20,7 +20,6 @@ def install(request):
         return HttpResponseRedirect('/index')
     
 
-
 def do_install(request):
     """执行用户初始化"""
     # 已初始化不允许再次访问

@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 
 from blog.models import Reply
+from blog.utils.page_util import calc_page_btn_list
 
 
 def reply_list(request):
@@ -26,24 +27,7 @@ def reply_list(request):
     reply_list_page = paginator.page(current_page)
 
     # 分页按钮组计算
-    page_btn_list = []
-    offset = 0
-    if current_page - 2 in paginator.page_range:
-        page_btn_list.append(current_page - 2)
-    else:
-        offset += 1
-    if current_page - 1 in paginator.page_range:
-        page_btn_list.append(current_page - 1)
-    else:
-        offset += 1
-    page_btn_list.append(current_page)
-    if current_page + 1 in paginator.page_range:
-        page_btn_list.append(current_page + 1)
-    if current_page + 2 in paginator.page_range:
-        page_btn_list.append(current_page + 2)
-    for i in range(1, offset + 1):
-        if current_page + 2 + i in paginator.page_range:
-            page_btn_list.append(current_page + 2 + i)
+    page_btn_list = calc_page_btn_list(paginator, current_page)
 
     return render(request, 'reply_list.html', {
         'reply_list_page': reply_list_page,

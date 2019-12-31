@@ -7,6 +7,7 @@ from django.utils.timezone import now
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest, JsonResponse
 import markdown
 from blog.models import Blog, Category
+from blog.utils.page_util import calc_page_btn_list
 from backend.utils.sitemap_generator import generate_sitemap
 
 
@@ -43,24 +44,7 @@ def blog_list(request):
     blog_list_page = paginator.page(current_page)
 
     # 分页按钮组计算
-    page_btn_list = []
-    offset = 0
-    if current_page - 2 in paginator.page_range:
-        page_btn_list.append(current_page - 2)
-    else:
-        offset += 1
-    if current_page - 1 in paginator.page_range:
-        page_btn_list.append(current_page - 1)
-    else:
-        offset += 1
-    page_btn_list.append(current_page)
-    if current_page + 1 in paginator.page_range:
-        page_btn_list.append(current_page + 1)
-    if current_page + 2 in paginator.page_range:
-        page_btn_list.append(current_page + 2)
-    for i in range(1, offset + 1):
-        if current_page + 2 + i in paginator.page_range:
-            page_btn_list.append(current_page + 2 + i)
+    page_btn_list = calc_page_btn_list(paginator, current_page)
 
     return render(request, 'blog_list.html', {
         'blog_list_page': blog_list_page,
